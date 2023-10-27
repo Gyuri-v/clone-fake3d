@@ -1,0 +1,22 @@
+{
+  "name": "shader-fake-3d-image",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 1.1.1.123 --port 7002 --open & npm run sass",
+    "build": "vite build",
+    "preview": "vite preview",
+    "watch": "vite build --watch",
+    "sync": "browser-sync --watch reload",
+    "sass": "sass -w resources/scss/style.scss:resources/css/style.css"
+  },
+  "devDependencies": {
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "dat.gui": "^0.7.9",
+    "sass": "^1.69.5",
+    "three": "^0.157.0"
+  }
+}
