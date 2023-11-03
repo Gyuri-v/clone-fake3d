@@ -87,12 +87,11 @@ const App = function () {
     
     // render
     setImages();
-    renderRequest();
-    render();
 
     // Loading
     THREE.DefaultLoadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
       if (itemsLoaded === itemsTotal) {
+        renderRequest();
         render();
       }
     }
@@ -153,9 +152,9 @@ const App = function () {
         vec2 mirrored(vec2 v) {
           vec2 m = mod(v, 2.0);
           return mix(m, 2.0-m , step(1.0, m));
-          // mod(a, b) : a를 b로 나눈 나머지 ----- m: 시작점 / 2.0-m : 끝점
-          // step(0.5, x) : 0.5 보다 x 가 크면 1, 아니면 0 --- 보간하는데 사용할 값
-          // mix(a, b, c) : a와 b를 c만큼 섞음
+          // mod(a, b) : a를 b로 나눈 나머지 ----- m: 시작점 / 2.0-m : 끝점을 계산한거임
+          // step(0.5, x) : 0.5 보다 x 가 크면 1, 아니면 0 --- 보간하는데 사용할 값계산을 한거임
+          // mix(a, b, c) : a(시작점)와 b(끝점)를 c만큼 보간
         }
 
         void main () {
@@ -190,13 +189,13 @@ const App = function () {
     camera.updateProjectionMatrix();
 
     // 화면에 fit 하게 맞추기
-    // if( areaHeight/areaWidth < originImageDetails.aspectRatio) {
-    //   const fitRatio = cameraFovY * camera.aspect;
-    //   plane.scale.set( fitRatio, fitRatio, 1 );
-    // } else {
-    //   const fitRatio = cameraFovY / originImageDetails.aspectRatio;
-    //   plane.scale.set( fitRatio, fitRatio, 1 );
-    // }
+    if( areaHeight/areaWidth < originImageDetails.aspectRatio) {
+      const fitRatio = cameraFovY * camera.aspect;
+      plane.scale.set( fitRatio, fitRatio, 1 );
+    } else {
+      const fitRatio = cameraFovY / originImageDetails.aspectRatio;
+      plane.scale.set( fitRatio, fitRatio, 1 );
+    }
     
     renderer.setSize(areaWidth, areaHeight);
     renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
